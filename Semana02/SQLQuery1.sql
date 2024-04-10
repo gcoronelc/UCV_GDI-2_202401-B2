@@ -1,37 +1,53 @@
--- OVER PARTITION
--- https://www.sqlshack.com/es/descripcion-general-de-la-clausula-partition-by-de-sql/
 /*
-OVER ([PARTITION BY columns] [ORDER BY columns])
+El empleado con el mayor sueldo por departamento.
+BD: RH
 */
 
--- EJEMPLO 1
+-- Solucion 1
+-- Paso 1
 
-SELECT ProductID, SUM(Quantity) CANTIDAD
-FROM Northwind..[Order Details]
-GROUP BY ProductID 
-ORDER BY ProductID;
-GO
+select iddepartamento, max(sueldo) sueldo_max
+from RH..empleado
+group by iddepartamento;
+go
 
-SELECT 
-	OrderID,
-	ProductID,
-	Quantity,
-	SUM(Quantity) OVER(PARTITION BY ProductID) CANTIDAD_TOTAL
-FROM Northwind..[Order Details];
-GO
 
--- PARTITION BY con ROW_ NUMBER ()
-/*
-ROW_ NUMBER () OVER (PARTITION BY columns ORDER BY columns)
-*/
+-- Paso 2: Tabla derivada
 
--- Ejemplo 2
+select e.*
+from RH..empleado e
+join (
+	select iddepartamento, max(sueldo) sueldo_max
+	from RH..empleado
+	group by iddepartamento
+) t
+on e.iddepartamento = t.iddepartamento
+and e.sueldo = t.sueldo_max;
+go
 
-SELECT 
-	ShipCountry, 
-	ROW_NUMBER() OVER( PARTITION BY ShipCountry ORDER BY OrderID) FILA,
-	OrderID, CustomerID
-FROM Northwind..Orders;
-GO
+
+-- Paso 2: Aplicando CTE
+
+with
+t1 as (
+	select iddepartamento, max(sueldo) sueldo_max
+	from RH..empleado
+	group by iddepartamento
+)
+select * 
+from RH..empleado e
+join t1 
+on e.iddepartamento = t1.iddepartamento
+and e.sueldo = t1.sueldo_max;
+go
+
+-- Paso 2: Usando ORden Patition
+-- Reto
+
+
+
+
+
+
 
 
