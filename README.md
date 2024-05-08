@@ -12,6 +12,7 @@
 - Inicio: 29-AGOSTO-2022
 - Teoría: 07:30 a 10:00 Horas
 - Laboratorio: 10:20 a 11:10 Horas
+- Canal de videos: https://www.youtube.com/@CoronelSoldiers
 
 
 ## DOCENTE
