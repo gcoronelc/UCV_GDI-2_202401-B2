@@ -12,7 +12,6 @@ go
 use perudev;
 go
 
-
 alter database perudev
 set recovery FULL;
 go
@@ -58,7 +57,7 @@ select * from perudev..test;
 go
 
 
--- Paso 4: Backup completo de la BD del dia lunes
+-- Paso 4: Backup completo de la BD del dia domingo
 
 backup database perudev to pd
 with
