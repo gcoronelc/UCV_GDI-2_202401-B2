@@ -1,0 +1,11 @@
+USE [VENTAS]
+GO
+CREATE USER [panchito] FOR LOGIN [panchito]
+GO
+USE [VENTAS]
+GO
+ALTER ROLE [ROL_VENTAS] ADD MEMBER [panchito]
+GO
+
+
+
